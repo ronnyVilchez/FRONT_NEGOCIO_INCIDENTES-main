@@ -7,6 +7,7 @@ import Rediriguir from "./components/Rediriguir";
 import { ProtectRouter } from "./components/ProtectRouter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AddUser } from "./components/User/Añadirusuario";
 
 export default function App() {
   return (
@@ -14,13 +15,14 @@ export default function App() {
       <Router>
         <Route path="/" component={Rediriguir} />
         <Route path="/login" component={Login} />
-       <ProtectRouter>
+        <Route path="/dashboard/create" component={AddUser} />
+        <ProtectRouter>
           <Layout>
             <Route path="/dashboard/:subpage?" component={Dashboard} />
           </Layout>
         </ProtectRouter>
       </Router>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}

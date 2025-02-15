@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContex";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "wouter";
 
 export const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -36,13 +37,17 @@ export const Login = () => {
             <br />
             Gestor de incidencias
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <div className="flex flex-row justify-center items-center gap-4 pt-2">
+          <span className=" text-center text-sm text-gray-600">
             ¿No tienes una cuenta?{" "}
-            <a
-              href="#"
+            
+          </span>
+          <Link
+              to='/dashboard/create'
               className="font-medium text-orange-600 hover:underline"
-            ></a>
-          </p>
+            >Registrarme Ahora</Link>
+          </div>
+          
         </div>
         <form
           onSubmit={handleLog}

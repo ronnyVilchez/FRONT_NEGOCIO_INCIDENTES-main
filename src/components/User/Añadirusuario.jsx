@@ -1,10 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AdminContext } from '../../context/AdminContex';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const AddUser = () => {
     const { createUser } = useContext(AdminContext);
+    const [token,setToken] = useState('')
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.log("No hay token");
+           setToken('not')
+        } else {setToken('yes')}
+    }, []);
 
     async function sendUser(e) {
         e.preventDefault();
@@ -99,7 +107,8 @@ export const AddUser = () => {
                         className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm'
                         name='rol'
                     >
-                        <option value='administrador'>Administrador</option>
+                       {token === 'yes' && 
+                        <option value='administrador'>Administrador</option>}
                         <option value='residente'>Residente</option>
                     </select>
                 </label>

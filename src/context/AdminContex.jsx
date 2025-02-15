@@ -111,9 +111,15 @@ export const AdminProvider = ({ children }) => {
         mutationKey: ['createUser'],
         mutationFn: createUs,
         onSuccess: (data) => {
-            queryClient.invalidateQueries('users')
-            setLocation('/dashboard/users')
-
+            queryClient.invalidateQueries('users');
+            
+            const token = localStorage.getItem("token"); 
+            
+            if (token) {
+                setLocation('/dashboard/users'); 
+            } else {
+                setLocation('/login'); 
+            }
         },
         onError: (err) => {
         }
