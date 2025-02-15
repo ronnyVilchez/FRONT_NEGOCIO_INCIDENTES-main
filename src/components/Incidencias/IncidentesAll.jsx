@@ -6,12 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export const IncidentAll = () => {
-    const { reportAll, updateStatus, delReport } = useContext(AdminContext);
+    const { reportAll, updateStatus, delReport,userAll } = useContext(AdminContext);
     const [expandedId, setExpandedId] = useState(null);
     const [reports, setReports] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         if (reportAll) setReports(reportAll);
+        if (userAll) setUsers(userAll);
     }, [reportAll]);
 
     const formatDate = (dateString) => {
@@ -145,6 +147,7 @@ export const IncidentAll = () => {
                 <table className="min-w-full bg-white bg-opacity-90 border border-purple-200">
                     <thead>
                         <tr className="bg-blue-100 border-b border-blue-300">
+                            <th className="py-2 px-4 text-center text-blue-700">Usuario</th>
                             <th className="py-2 px-4 text-center text-blue-700">Asunto</th>
                             <th className="py-2 px-4 text-center text-yellow-500">Descripción</th>
                             <th className="py-2 px-4 text-center text-orange-600">Tipo</th>
@@ -156,10 +159,15 @@ export const IncidentAll = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reports &&
-                            reports.map((item) => (
+                        {reports.length > 0 && users.length > 0 &&
+                            reports.map((item) => {
+                            
+                                const usuario = users.find((user) => user.id === item.usuario_id);
+                                const usuarioNombre = usuario?.nombre ?? "Desconocido";
+                                return (
                                 <React.Fragment key={item.id}>
                                     <tr className="relative text-black border-b border-blue-300">
+                                    <td className="py-2 px-4 text-center">{usuarioNombre}</td>
                                         <td className="py-2 px-4 text-center">{item.asunto}</td>
                                         <td className="py-2 px-4 text-center">{item.descripcion}</td>
                                         <td className="py-2 px-4 text-center">{item.tipo}</td>
@@ -187,10 +195,10 @@ export const IncidentAll = () => {
                                             </div>
                                         </td>
 
-                                        <td className="py-2 px-4 text-center">
+                                        <td className="py-2 px-2 text-center">
                                             <select
                                                 required
-                                                className='px-4 outline-none rounded-xl bg-blue-100 w-full h-10 cursor-pointer text-black font-normal'
+                                                className='px-2 outline-none rounded-xl bg-blue-100 w-fit h-10 cursor-pointer text-black font-normal'
                                                 type="text"
                                                 name='estado'
                                                 defaultValue={item.estado}
@@ -201,6 +209,7 @@ export const IncidentAll = () => {
                                                 <option value="resuelta">Resuelto</option>
                                             </select>
                                         </td>
+
                                         <td className="py-2 px-4 text-center cursor-pointer" colSpan={2}>
                                             <button
                                                 className="text-red-500 hover:underline"
@@ -211,7 +220,8 @@ export const IncidentAll = () => {
                                         </td>
                                     </tr>
                                 </React.Fragment>
-                            ))}
+                                )
+})}
                     </tbody>
                 </table>
             </section>

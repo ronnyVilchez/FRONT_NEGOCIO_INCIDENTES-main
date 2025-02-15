@@ -62,6 +62,7 @@ export const Incident = () => {
                 <table className="min-w-full bg-white bg-opacity-90 border border-purple-200 rounded-md">
                     <thead>
                     <tr className="bg-blue-100 border-b border-blue-300">
+                            <th className="py-2 px-4 text-center text-blue-700">Usuario</th>
                             <th className="py-2 px-4 text-center text-blue-700">Asunto</th>
                             <th className="py-2 px-4 text-center text-yellow-500">Descripción</th>
                             <th className="py-2 px-4 text-center text-orange-600">Tipo</th>
