@@ -52,7 +52,7 @@ export const Incident = () => {
                             <option value="">Todos</option>
                             <option value="pendiente">Pendiente</option>
                             <option value="en_proceso">Progreso</option>
-                            <option value="resuelto">Resuelto</option>
+                            <option value="resuelta">Resuelto</option>
                         </select>
                     </label>
                    

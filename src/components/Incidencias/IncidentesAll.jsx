@@ -87,13 +87,18 @@ export const IncidentAll = () => {
             toast.error('Error al eliminar el reporte');
         }
     };
-
     const statusFilter = (e) => {
+        console.log("Valor seleccionado:", e.target.value);
+    
         if (e.target.value === '') {
             setReports(reportAll);
         } else {
-            const filterArray = reportAll.filter((rp) => rp.estado === e.target.value);
-            console.log(filterArray);
+            const filterArray = reportAll.filter(rp => {
+                console.log("Estado en reporte:", rp.estado); // Ver qué valores tiene `estado`
+                return rp.estado === e.target.value; // Filtrar correctamente
+            });
+    
+            console.log("Filtrados:", filterArray); // Ver los resultados después de filtrar
             setReports(filterArray);
         }
     };
@@ -120,8 +125,8 @@ export const IncidentAll = () => {
                         <select className='rounded-xl border border-blue-300 p-2 outline-none text-black' onChange={statusFilter}>
                             <option value="">Todos</option>
                             <option value="pendiente">Pendiente</option>
-                            <option value="en_progreso">Progreso</option>
-                            <option value="resuelto">Resuelto</option>
+                            <option value="en_proceso">Progreso</option>
+                            <option value="resuelta">Resuelto</option>
                         </select>
                     </label>
                     {/* <section>
@@ -193,7 +198,7 @@ export const IncidentAll = () => {
                                             >
                                                 <option value="pendiente">Pendiente</option>
                                                 <option value="en_proceso">Progreso</option>
-                                                <option value="resuelto">Resuelto</option>
+                                                <option value="resuelta">Resuelto</option>
                                             </select>
                                         </td>
                                         <td className="py-2 px-4 text-center cursor-pointer" colSpan={2}>

@@ -14,7 +14,7 @@ export const Report = () => {
 
         const formData = new FormData(e.target);
         formData.append("usuario_id", usuario_id);
-        formData.append("estado", "en_proceso");
+        formData.append("estado", "pendiente");
 
         const jsonObject = Object.fromEntries(formData.entries());
         console.log("Datos enviados:", JSON.stringify(jsonObject, null, 2));
