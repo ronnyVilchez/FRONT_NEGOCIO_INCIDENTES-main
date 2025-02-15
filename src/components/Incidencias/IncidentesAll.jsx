@@ -26,16 +26,16 @@ export const IncidentAll = () => {
 
     const handleUpdate = async (e, id) => {
         localStorage.setItem('idR', id);
-    // cambie 'status' por 'estado', ya que asi lo emvia enel backend
+        // cambie 'status' por 'estado', ya que asi lo emvia enel backend
         const data = {
             estado: e.target.value,  // Envía el estado directamente como JSON
         };
-    
+
         try {
             console.log("Enviando datos a la API:", data);
             await updateStatus.mutateAsync(data);  // Axios enviará esto como JSON automáticamente
             toast.success('Estado actualizado correctamente');
-    
+
             // Actualiza el estado local
             setReports(prevReports =>
                 prevReports.map(report =>
@@ -49,15 +49,15 @@ export const IncidentAll = () => {
 
     // const handleUpdate = async (e, id) => {
     //     localStorage.setItem('idR', id);
-    
+
     //     const data = new FormData();
     //     data.append('estado', e.target.value);
-    
+
     //     try {
     //         console.log("Enviando datos a la API:", data);
     //         await updateStatus.mutateAsync(data);
     //         toast.success('Estado actualizado correctamente');
-    
+
     //         // Update local state for reports
     //         setReports(prevReports =>
     //             prevReports.map(report =>
@@ -68,7 +68,7 @@ export const IncidentAll = () => {
     //         toast.error('Error al actualizar el estado');
     //     }
     // };
-    
+
 
     // const handleUpdate = async (e, id) => {
     //     localStorage.setItem('idR', id);
@@ -143,6 +143,9 @@ export const IncidentAll = () => {
                             <th className="py-2 px-4 text-center text-blue-700">Asunto</th>
                             <th className="py-2 px-4 text-center text-yellow-500">Descripción</th>
                             <th className="py-2 px-4 text-center text-orange-600">Tipo</th>
+                            <th className="py-2 px-4 text-center text-purple-600">Fecha Programada</th>
+                            <th className="py-2 px-4 text-center text-purple-600">Hora Programada</th>
+                            <th className="py-2 px-4 text-center text-blue-600">Complejidad</th>
                             <th className="py-2 px-4 text-center text-green-600">Estado</th>
                             <th className="py-2 px-4 text-center text-red-600">Accion</th>
                         </tr>
@@ -155,6 +158,30 @@ export const IncidentAll = () => {
                                         <td className="py-2 px-4 text-center">{item.asunto}</td>
                                         <td className="py-2 px-4 text-center">{item.descripcion}</td>
                                         <td className="py-2 px-4 text-center">{item.tipo}</td>
+                                        <td className="py-2 px-4 text-center">
+                                            {new Date(item.fecha_programada).toLocaleDateString("es-ES")}
+                                        </td>
+                                        <td className="py-2 px-4 text-center">
+                                            {new Date(`1970-01-01T${item.hora_programada}`).toLocaleTimeString("es-ES", {
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true,
+                                            })}
+                                        </td>
+
+                                        <td className="py-2 px-4 text-center">
+                                            <div className="flex flex-col items-center">
+                                                <span>{item.presupuesto}</span>
+                                                <span className="text-xs text-gray-500">
+                                                    {item.presupuesto === "simple" && "S/100 a S/500"}
+                                                    {item.presupuesto === "moderado" && "S/500 a S/1500"}
+                                                    {item.presupuesto === "complejo" && "S/1500 a S/3000"}
+                                                    {item.presupuesto === "muy_complejo" && "S/3000 a S/5000"}
+                                                    {item.presupuesto === "especializado" && "S/5000 a más"}
+                                                </span>
+                                            </div>
+                                        </td>
+
                                         <td className="py-2 px-4 text-center">
                                             <select
                                                 required

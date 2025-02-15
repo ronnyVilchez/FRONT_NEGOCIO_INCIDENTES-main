@@ -1,5 +1,5 @@
 import axios from "axios"
-export const mainAPI = axios.create({ baseURL: 'https://back-negocio.onrender.com' });
+export const mainAPI = axios.create({ baseURL: 'https://back-negocio-main.onrender.com/' });
 
 export const usersAll = async ()=> {
    const users = await mainAPI.get('/api/user/all')

@@ -83,7 +83,7 @@ export const Report = () => {
                             <option value="albañileria">Albañilería</option>
                             <option value="mantenimiento">Mantenimiento</option>
                             <option value="reparaciones">Reparaciones</option>
-                            <option value="otros">Otros</option>
+                            <option value="otro">Otros</option>
                         </select>
 
                     </label>
@@ -94,7 +94,7 @@ export const Report = () => {
                         <select
                             required
                             className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
-                            name='complejidad'
+                            name='presupuesto'
                         >
                             <option value="simple">S/. 100 - S/. 500</option>
                             <option value="moderado">S/. 500 - S/. 1,500</option>
@@ -115,7 +115,7 @@ export const Report = () => {
                                 type="date"
                                 required
                                 className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
-                                name='fecha_preferencia'
+                                name='fecha_programada'
                                 min={new Date().toISOString().slice(0, 10)} // Fecha mínima: hoy
                             />
                         </label>
@@ -126,22 +126,22 @@ export const Report = () => {
                             <select
                                 required
                                 className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
-                                name='hora_preferencia'
+                                name='hora_programada'
                             >
                                 <option value="" disabled selected>Selecciona una hora</option>
-                                <option value="08:00 AM">08:00 AM</option>
-                                <option value="09:00 AM">09:00 AM</option>
-                                <option value="10:00 AM">10:00 AM</option>
-                                <option value="11:00 AM">11:00 AM</option>
-                                <option value="12:00 PM">12:00 PM</option>
-                                <option value="01:00 PM">01:00 PM</option>
-                                <option value="02:00 PM">02:00 PM</option>
-                                <option value="03:00 PM">03:00 PM</option>
-                                <option value="04:00 PM">04:00 PM</option>
-                                <option value="05:00 PM">05:00 PM</option>
-                                <option value="06:00 PM">06:00 PM</option>
-                                <option value="07:00 PM">07:00 PM</option>
-                                <option value="08:00 PM">08:00 PM</option>
+                                <option value="08:00:00">08:00 AM</option>
+                                <option value="09:00:00">09:00 AM</option>
+                                <option value="10:00:00">10:00 AM</option>
+                                <option value="11:00:00">11:00 AM</option>
+                                <option value="12:00:00">12:00 PM</option>
+                                <option value="13:00:00">01:00 PM</option>
+                                <option value="14:00:00">02:00 PM</option>
+                                <option value="15:00:00">03:00 PM</option>
+                                <option value="16:00:00">04:00 PM</option>
+                                <option value="17:00:00">05:00 PM</option>
+                                <option value="18:00:00">06:00 PM</option>
+                                <option value="19:00:00">07:00 PM</option>
+                                <option value="20:00:00">08:00 PM</option>
                             </select>
                         </label>
                     </div>

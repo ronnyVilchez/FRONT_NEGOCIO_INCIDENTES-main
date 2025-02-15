@@ -63,7 +63,7 @@ const OpcionesUser = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded transition duration-300"
+        className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs sm:text-base py-2 sm:py-1  px-2 rounded transition duration-300"
       >
         <span>Opciones</span>
         <ChevronDown
@@ -73,9 +73,10 @@ const OpcionesUser = () => {
         />
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
+        <div className="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
           {options.map((option, index) => (
             <Link
+            onClick={() => setIsOpen(!isOpen)}
               key={index}
               href={option.to}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 transition duration-300"
@@ -104,17 +105,17 @@ export const Navbar = () => {
               </span>
             </Link>
           </div>
-          <div className="flex items-center ">
+          <div className="flex flex-row gap-2 items-center ">
             {infoUser?.rol === "administrador" ? <OpcionesAdm /> : <OpcionesUser />}
             <Link
               href="/dashboard/profile"
-              className="bg-orange-600 hover:bg-green-700 text-white font-bold py-1 px-2 rounded inline-flex items-center transition duration-300"
+              className="bg-orange-600 hover:bg-green-700 text-white font-bold text-xs sm:text-base py-2 sm:py-1 px-2 rounded inline-flex items-center transition duration-300"
             >
               Perfil
             </Link>
             <button
               onClick={logout}
-              className="bg-orange-600 hover:bg-green-700 text-white font-bold py-1 px-2 rounded inline-flex items-center transition duration-300"
+              className="bg-orange-600 hover:bg-green-700 text-white font-bold text-xs sm:text-base py-2 sm:py-1 px-2 rounded inline-flex items-center transition duration-300"
             >
               <LogOut className="h-4 w-4 mr-2" />
               <span>Logout</span>

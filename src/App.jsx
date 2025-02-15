@@ -12,13 +12,13 @@ export default function App() {
   return (
     <>
       <Router>
-        {/* <Route path="/" component={Rediriguir} />
-        <Route path="/login" component={Login} /> */}
-    {/*    <ProtectRouter> */}
+        <Route path="/" component={Rediriguir} />
+        <Route path="/login" component={Login} />
+       <ProtectRouter>
           <Layout>
             <Route path="/dashboard/:subpage?" component={Dashboard} />
           </Layout>
-       {/*  </ProtectRouter> */}
+        </ProtectRouter>
       </Router>
       <ToastContainer 
         position="top-right"
