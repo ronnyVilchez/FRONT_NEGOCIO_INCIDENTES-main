@@ -43,7 +43,7 @@ export const Login = () => {
             
           </span>
           <Link
-              to='/dashboard/create'
+              to='/dashboard/new'
               className="font-medium text-orange-600 hover:underline"
             >Registrarme Ahora</Link>
           </div>

@@ -15,7 +15,7 @@ export default function App() {
       <Router>
         <Route path="/" component={Rediriguir} />
         <Route path="/login" component={Login} />
-        <Route path="/dashboard/create" component={AddUser} />
+        <Route path="/dashboard/new" component={AddUser} />
         <ProtectRouter>
           <Layout>
             <Route path="/dashboard/:subpage?" component={Dashboard} />

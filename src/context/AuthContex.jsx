@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react";
 import { useMutation } from "react-query";
 import { Auth } from "../services/AuthService";
 import { useLocation } from "wouter";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -26,6 +27,11 @@ export const AuthProvider = ({ children }) => {
             setInfoUser(data.user); // Actualiza el estado con los datos del usuario
             setLocation('/dashboard'); // Redirige al dashboard
         },
+        onError:(data) => {
+            toast.error(
+                    "Error al iniciar sesión. Por favor, verifica tu usuario y contraseña."
+                  );
+        }
     });
 
     // Función para manejar el logout
