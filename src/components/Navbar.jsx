@@ -9,6 +9,7 @@ import {
   Home,
   LogOut,
   User,
+  Calendar,
 } from "lucide-react";
 import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
 
@@ -18,6 +19,7 @@ const OpcionesAdm = () => {
     { to: "/dashboard/users", icon: Users, text: "Usuarios" },
     { to: "/dashboard/incidentAll", icon: FileText, text: "Reportes" },
     { to: "/dashboard/create", icon: UserPlus, text: "Crear Usuario" },
+    { to: "/dashboard/calendar", icon: Calendar, text: "Calendario" },
   ];
 
   return (
