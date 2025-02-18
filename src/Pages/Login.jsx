@@ -23,92 +23,44 @@ export const Login = () => {
   }
 
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-gray-50 px-4  py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full  max-w-md space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight  text-gray-900">
-            <figure className="h-[25%] w-[88%] mx-auto  ">
-              <img
-                src="edificio_final.jpg"
-                alt="Logo"
-                className="w-full h-full "
-              />
-            </figure>
-            <br />
-            Gestor de incidencias
-          </h2>
-          <div className="flex flex-row justify-center items-center gap-4 pt-2">
-          <span className=" text-center text-sm text-gray-600">
-            ¿No tienes una cuenta?{" "}
-            
-          </span>
-          <Link
-              to='/dashboard/new'
-              className="font-medium text-orange-600 hover:underline"
-            >Registrarme Ahora</Link>
-          </div>
-          
-        </div>
-        <form
-          onSubmit={handleLog}
-          className="space-y-6"
-          action="#"
-          method="POST"
-        >
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Correo electrónico
-            </label>
-            <div className="mt-1">
-              <input
-                id="email"
-                name="email"
-                type="text"
-                autoComplete="email"
-                required
-                className="block w-full appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Contraseña
-              </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-orange-600 hover:underline"
-                ></a>
-              </div>
-            </div>
-            <div className="mt-1">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="block w-full appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
-              />
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Iniciar sesión
-            </button>
-          </div>
-        </form>
-      </div>
+    <div className="flex min-h-[100dvh] items-center justify-center bg-gradient-to-r from-purple-600 to-blue-500 px-4 py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="absolute inset-0 flex justify-center items-center">
+      <div className="w-96 h-96 bg-white opacity-10 blur-3xl rounded-full"></div>
     </div>
+    <div className="relative mx-auto w-full max-w-md bg-white/20 backdrop-blur-lg shadow-lg rounded-xl p-8">
+      <div className="text-center">
+        <figure className="h-24 w-24 mx-auto mb-4">
+          <img src="edificio_final.jpg" alt="Logo" className="w-full h-full rounded-full shadow-lg" />
+        </figure>
+        <h2 className="text-3xl font-bold text-white">Gestor de Incidencias</h2>
+        <p className="text-sm text-gray-200 mt-2">¿No tienes una cuenta? 
+          <Link to='/dashboard/new' className="font-medium text-yellow-400 hover:text-yellow-300 transition-all">Registrarme Ahora</Link>
+        </p>
+      </div>
+      <form onSubmit={handleLog} className="mt-6 space-y-6">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-white">Correo electrónico</label>
+          <div className="mt-1">
+            <input id="email" name="email" type="text" autoComplete="email" required 
+              className="block w-full rounded-lg border border-transparent bg-white/20 px-4 py-3 text-white placeholder-gray-300 shadow-lg outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 transition-all" 
+              placeholder="Ingresa tu correo"/>
+          </div>
+        </div>
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-white">Contraseña</label>
+          <div className="mt-1">
+            <input id="password" name="password" type="password" autoComplete="current-password" required 
+              className="block w-full rounded-lg border border-transparent bg-white/20 px-4 py-3 text-white placeholder-gray-300 shadow-lg outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 transition-all" 
+              placeholder="Ingresa tu contraseña"/>
+          </div>
+        </div>
+        <div>
+          <button type="submit" 
+            className="w-full rounded-lg bg-yellow-400 px-4 py-3 text-lg font-medium text-gray-900 shadow-lg hover:bg-yellow-300 transition-all">Iniciar sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
   );
 };

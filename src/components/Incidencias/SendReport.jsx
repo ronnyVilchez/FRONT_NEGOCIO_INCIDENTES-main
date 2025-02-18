@@ -18,7 +18,7 @@ export const Report = () => {
 
         const jsonObject = Object.fromEntries(formData.entries());
         console.log("Datos enviados:", JSON.stringify(jsonObject, null, 2));
-        
+
         try {
             await createReport.mutateAsync(formData);
             e.target.reset();
@@ -42,7 +42,7 @@ export const Report = () => {
             <h2 className='text-2xl font-bold text-gray-800 mb-4'>Nuevo reporte</h2>
             <p className='text-lg text-gray-600 mb-6'>Complete el formulario a continuación para reportar un problema.</p>
 
-            <form className='bg-white p-6 rounded-lg shadow-md space-y-6' onSubmit={handleSubmit}>
+            <form className='bg-white text-black p-6 rounded-lg shadow-md space-y-6' onSubmit={handleSubmit}>
                 <div className='flex flex-col space-y-2'>
                     <label className='flex flex-col'>
                         <span className='text-sm font-medium text-gray-700'>Asunto:</span>
@@ -70,9 +70,10 @@ export const Report = () => {
                     <label className='flex flex-col'>
                         <span className='text-sm font-medium text-gray-700'>Categoria:</span>
                         <select required
-                            className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
+                            className='mt-1 px-4 py-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
                             name='tipo'
                         >
+                            <option value="" disabled selected>Selecciona una opción</option>
                             <option value="fontaneria">Fontanería</option>
                             <option value="electricidad">Electricidad</option>
                             <option value="limpieza">Limpieza</option>
@@ -93,9 +94,10 @@ export const Report = () => {
                         <span className='text-sm font-medium text-gray-700'>Define tu presupuesto estimado:</span>
                         <select
                             required
-                            className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
+                            className='mt-1 px-4 py-2 border text-black border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
                             name='presupuesto'
                         >
+                            <option value="" disabled selected>Selecciona una opción</option>
                             <option value="simple">S/. 100 - S/. 500</option>
                             <option value="moderado">S/. 500 - S/. 1,500</option>
                             <option value="complejo">S/. 1,500 - S/. 3,000</option>
@@ -109,19 +111,19 @@ export const Report = () => {
 
 
                     <div className='flex flex-col space-y-2'>
-                        <label className='flex flex-col'>
-                            <span className='text-sm font-medium text-gray-700'>Fecha de preferencia:</span>
+                        <label className='flex text-black flex-col'>
+                            <span className='text-sm  font-medium text-gray-700'>Fecha de preferencia:</span>
                             <input
                                 type="date"
                                 required
                                 className='mt-1 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500'
                                 name='fecha_programada'
-                                min={new Date().toISOString().slice(0, 10)} // Fecha mínima: hoy
+                                min={new Date().toISOString().slice(0, 10)}
                             />
                         </label>
                     </div>
                     <div className='flex flex-col space-y-2'>
-                        <label className='flex flex-col'>
+                        <label className='flex flex-col text-black'>
                             <span className='text-sm font-medium text-gray-700'>Hora de preferencia:</span>
                             <select
                                 required
@@ -150,11 +152,21 @@ export const Report = () => {
 
                 <br />
                 <span className='text-sm font-medium text-gray-700'>Adjuntar: Envía imágenes que ayuden a entender la incidencia, así podremos ayudarte más eficientemente. </span>
-                <br />
-                <input className='' id='photo' name='photo' type="file" />
+                {/* Subida de archivos */}
+                <div className='flex flex-col space-y-2'>
+                    <label className='text-sm font-medium text-white'>Adjuntar imágenes:</label>
+                    <input
+                        className='w-full border border-gray-500 bg-tertiary text-black rounded-md p-2'
+                        id='photo'
+                        name='photo'
+                        type="file"
+                    />
+                </div>
+
+                {/* Botón de envío */}
                 {error && <p className='text-red-500 text-sm'>{error}</p>}
                 <button
-                    className='w-full py-2 bg-orange-500 text-white font-semibold rounded-md shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    className='w-full py-2 bg-accent text-white font-semibold rounded-md shadow-md hover:bg-accent-dark'
                     type='submit'
                     disabled={createReport.isLoading}
                 >

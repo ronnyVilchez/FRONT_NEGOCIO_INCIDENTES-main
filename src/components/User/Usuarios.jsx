@@ -46,11 +46,11 @@ export const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {userAll?.map((item) => (
+            {userAll?.map((item,index) => (
               <tr
                 key={item.id}
-                className="border-b border-gray-200 hover:bg-gray-50"
-              >
+                className={`relative text-black border-b border-blue-300 hover:bg-blue-100 transition-colors ${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}`}
+                >
                 <td className="py-2 px-4 text-gray-800">{item.nombre}</td>
                 <td className="py-2 px-4 text-gray-800">{item.apellido}</td>
                 <td className="py-2 px-4 text-gray-800">{item.email}</td>

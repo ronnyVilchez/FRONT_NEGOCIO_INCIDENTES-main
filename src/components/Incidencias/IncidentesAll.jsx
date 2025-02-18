@@ -160,13 +160,15 @@ export const IncidentAll = () => {
                     </thead>
                     <tbody>
                         {reports.length > 0 && users.length > 0 &&
-                            reports.map((item) => {
+                            reports.map((item, index) => {
                             
                                 const usuario = users.find((user) => user.id === item.usuario_id);
                                 const usuarioNombre = usuario?.nombre ?? "Desconocido";
                                 return (
                                 <React.Fragment key={item.id}>
-                                    <tr className="relative text-black border-b border-blue-300">
+                                    <tr 
+      className={`relative text-black border-b border-blue-300 hover:bg-blue-100 transition-colors ${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}`}
+                                    >
                                     <td className="py-2 px-4 text-center">{usuarioNombre}</td>
                                         <td className="py-2 px-4 text-center">{item.asunto}</td>
                                         <td className="py-2 px-4 text-center">{item.descripcion}</td>

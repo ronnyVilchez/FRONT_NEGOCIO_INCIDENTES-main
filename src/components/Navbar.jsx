@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { AuthContext } from "../context/AuthContex";
 import {
@@ -6,84 +6,51 @@ import {
   Users,
   FileText,
   UserPlus,
-  Home,
+  Calendar,
   LogOut,
   User,
-  Calendar,
 } from "lucide-react";
 import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
 
-const OpcionesAdm = () => {
+const DropdownMenu = ({ options, label }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const options = [
-    { to: "/dashboard/users", icon: Users, text: "Usuarios" },
-    { to: "/dashboard/incidentAll", icon: FileText, text: "Reportes" },
-    { to: "/dashboard/create", icon: UserPlus, text: "Crear Usuario" },
-    { to: "/dashboard/calendar", icon: Calendar, text: "Calendario" },
-  ];
+  const menuRef = useRef(null);
+
+  // Cierra el menú si se hace clic fuera de él
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-row  justify-items-stretch place-items-center w-fit h-fit  bg-orange-600 hover:bg-green-700 text-white font-semibold py-1 px-2 rounded transition duration-300 "
+        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold sm:px-2 sm:py-2 px-2 py-1 rounded-lg transition-all duration-300"
+        title={label}
+        aria-label={label}
       >
-        <span>Admin</span>
-        <ChevronDown
-          className={`h-4 w-4 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
+        <span>{label}</span>
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 ">
+        <div className="absolute left-0 mt-2 w-48 px-3 text-center bg-white rounded-md shadow-lg py-1 z-10 transition-all duration-300">
           {options.map((option, index) => (
             <Link
               key={index}
               href={option.to}
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center text-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white transition duration-300"
+              onClick={() => setIsOpen(false)}
+              className="flex border-b border-blue-400 items-center py-2 text-sm text-gray-700 hover:bg-blue-200 transition-all duration-300 w-full"
+              title={option.text}
             >
-              <option.icon className="h-4 w-4 mr-2 text-indigo-500" />
+              {option.icon && <option.icon className="h-4 w-4 mr-2 text-blue-600" />}
               <span>{option.text}</span>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const OpcionesUser = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const options = [
-    { to: "/dashboard/report", text: "Reportar un problema" },
-    { to: "/dashboard/incident", text: "Ver mis reportes" },
-  ];
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs sm:text-base py-2 sm:py-1  px-2 rounded transition duration-300"
-      >
-        <span>Opciones</span>
-        <ChevronDown
-          className={`h-4 w-4 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
-      {isOpen && (
-        <div className="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
-          {options.map((option, index) => (
-            <Link
-            onClick={() => setIsOpen(!isOpen)}
-              key={index}
-              href={option.to}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 transition duration-300"
-            >
-              {option.text}
             </Link>
           ))}
         </div>
@@ -94,41 +61,56 @@ const OpcionesUser = () => {
 
 export const Navbar = () => {
   const { infoUser, logout } = useContext(AuthContext);
+  const isAdmin = infoUser?.rol === "administrador";
+
+  const adminOptions = [
+    { to: "/dashboard/users", icon: Users, text: "Usuarios" },
+    { to: "/dashboard/incidentAll", icon: FileText, text: "Reportes" },
+    { to: "/dashboard/create", icon: UserPlus, text: "Crear Usuario" },
+    { to: "/dashboard/calendar", icon: Calendar, text: "Calendario" },
+  ];
+
+  const userOptions = [
+    { to: "/dashboard/report", text: "Reportar un problema" },
+    { to: "/dashboard/incident", text: "Ver mis reportes" },
+  ];
 
   return (
-    <nav className="bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-md">
-      <div className="max-w-7xl px-2 sm:px-6 ">
-        <div className="flex justify-between gap-1 h-16">
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/dashboard" className="flex items-center ">
-              <BuildingOfficeIcon className="h-8 w-8" />
-              <span className="ml-2 text-xl font-bold hidden md:block">
-                Home
-              </span>
-            </Link>
-          </div>
-          <div className="flex flex-row gap-2 items-center ">
-            {infoUser?.rol === "administrador" ? <OpcionesAdm /> : <OpcionesUser />}
+    <nav className="bg-gradient-to-r from-blue-900 to-blue-700 text-white shadow-md">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="flex flex-row flex-nowrap justify-between items-center h-16">
+          <Link href="/dashboard" className="flex items-center text-white font-bold text-lg">
+            <BuildingOfficeIcon className="h-8 w-8 text-white" aria-label="Inicio" />
+            <span className="ml-2 hidden sm:block">Home</span>
+          </Link>
+
+          <div className="flex flex-nowrap items-center gap-2 sm:gap-4">
+            <DropdownMenu options={isAdmin ? adminOptions : userOptions} label={isAdmin ? "Admin" : "Opciones"} />
+
             <Link
               href="/dashboard/profile"
-              className="bg-orange-600 hover:bg-green-700 text-white font-bold text-xs sm:text-base py-2 sm:py-1 px-2 rounded inline-flex items-center transition duration-300"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-1 sm:py-2 sm:px-3 rounded-lg transition-all duration-300"
+              title="Perfil"
+              aria-label="Perfil"
             >
               Perfil
             </Link>
+
             <button
               onClick={logout}
-              className="bg-orange-600 hover:bg-green-700 text-white font-bold text-xs sm:text-base py-2 sm:py-1 px-2 rounded inline-flex items-center transition duration-300"
+              className="bg-red-600 hover:bg-red-700 text-white font-bold px-2 py-1 sm:py-2 sm:px-3 rounded-lg transition-all duration-300 flex items-center"
+              title="Cerrar sesión"
+              aria-label="Cerrar sesión"
             >
               <LogOut className="h-4 w-4 mr-2" />
-              <span>Logout</span>
+              Logout
             </button>
-            {/* Mueve este bloque después del botón de Logout */}
+
             {infoUser && (
-              <div className="flex items-center">
-                <User className="h-5 w-5 mr-2" />
-                <span className="text-sm font-medium">
-                  {infoUser.rol === "administrador" ? "Admin" : "Resident"}:{" "}
-                  {infoUser.nombre}
+              <div className="flex items-center gap-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-lg transition-all duration-300">
+                <User className="hidden sm:block h-5 w-5 text-white" aria-label="Usuario" />
+                <span className="text-sm font-medium text-white">
+                  {isAdmin ? "Admin" : "User"}: {infoUser.nombre}
                 </span>
               </div>
             )}
@@ -138,150 +120,3 @@ export const Navbar = () => {
     </nav>
   );
 };
-
-
-
-
-
-
-// import React, { useContext, useState } from "react";
-// import { Link } from "wouter";
-// import { AuthContext } from "../context/AuthContex";
-// import {
-//   ChevronDown,
-//   Users,
-//   FileText,
-//   UserPlus,
-//   Home,
-//   LogOut,
-//   User,
-// } from "lucide-react";
-// import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
-
-// const OpcionesAdm = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const options = [
-//     { to: "/dashboard/users", icon: Users, text: "Usuarios" },
-//     { to: "/dashboard/incidentAll", icon: FileText, text: "Reportes" },
-//     { to: "/dashboard/create", icon: UserPlus, text: "Crear Usuario" },
-//   ];
-
-//   return (
-//     <div className="relative">
-//       <button
-//         onClick={() => setIsOpen(!isOpen)}
-//         className="flex items-center space-x-1 bg-orange-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-300"
-//       >
-//         <span>Admin</span>
-//         <ChevronDown
-//           className={`h-4 w-4 transition-transform duration-300 ${
-//             isOpen ? "rotate-180" : ""
-//           }`}
-//         />
-//       </button>
-//       {isOpen && (
-//         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-//           {options.map((option, index) => (
-//             <Link
-//               key={index}
-//               href={option.to}
-//               className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100 transition duration-300"
-//             >
-//               <option.icon className="h-4 w-4 mr-2 text-indigo-500" />
-//               <span>{option.text}</span>
-//             </Link>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// const OpcionesUser = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const options = [
-//     { to: "/dashboard/report", text: "Reportar un problema" },
-//     { to: "/dashboard/incident", text: "Ver mis reportes" },
-//   ];
-
-//   return (
-//     <div className="relative">
-//       <button
-//         onClick={() => setIsOpen(!isOpen)}
-//         className="flex items-center space-x-1 bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded transition duration-300"
-//       >
-//         <span>Opciones</span>
-//         <ChevronDown
-//           className={`h-4 w-4 transition-transform duration-300 ${
-//             isOpen ? "rotate-180" : ""
-//           }`}
-//         />
-//       </button>
-//       {isOpen && (
-//         <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-1 z-10">
-//           {options.map((option, index) => (
-//             <Link
-//               key={index}
-//               href={option.to}
-//               className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 transition duration-300"
-//             >
-//               {option.text}
-//             </Link>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export const Navbar = () => {
-//   const { infoUser, logout } = useContext(AuthContext);
-
-//   return (
-//     <nav className="bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-md">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="flex justify-between h-16">
-//           <div className="flex-shrink-0 flex items-center">
-//             <Link href="/dashboard" className="flex items-center ">
-//               <BuildingOfficeIcon className="h-8 w-8" />
-//               <span className="ml-2 text-xl font-bold hidden md:block">
-//                 Home
-//               </span>
-//             </Link>
-//           </div>
-//           <div className="flex items-center space-x-4">
-//             {infoUser && (
-//               <>
-//                 <div className="flex items-center">
-//                   <User className="h-5 w-5 mr-2" />
-//                   <span className="text-sm font-medium">
-//                     {infoUser.rol === "administrador" ? "Admin" : "Resident"}:{" "}
-//                     {infoUser.nombre}
-//                   </span>
-//                 </div>
-//                 {infoUser.rol === "administrador" ? (
-//                   <OpcionesAdm />
-//                 ) : (
-//                   <OpcionesUser />
-//                 )}
-//               </>
-//             )}
-//             <Link
-//               href="/dashboard/profile"
-//               className="bg-orange-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center transition duration-300"
-//             >
-//               Perfil
-//             </Link>
-//             <button
-//               onClick={logout}
-//               className="bg-orange-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center transition duration-300"
-//             >
-//               <LogOut className="h-4 w-4 mr-2" />
-//               <span>Logout</span>
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };

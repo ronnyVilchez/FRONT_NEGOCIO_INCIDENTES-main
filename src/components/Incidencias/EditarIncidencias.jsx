@@ -18,23 +18,22 @@ export const EditIncident = () => {
     }
 
     return (
-        <section className='w-full flex flex-col items-center gap-6 p-6 bg-blue-50 min-h-screen'>
-            <h2 className='text-2xl font-semibold text-purple-700'>Edita tu reporte aquí</h2>
-            <p className='text-lg text-gray-600'>Agrega o modifica tu reporte</p>
+        <section className='w-full flex flex-col items-center gap-6 p-6 bg-gradient-to-br from-blue-300 via-indigo-300 to-purple-300 min-h-screen'>
+            <h2 className='text-3xl font-bold text-white'>Edita tu reporte aquí</h2>
+            <p className='text-lg text-gray-100'>Agrega o modifica tu reporte</p>
             {reportFOne &&
                 reportFOne.map((rp) => (
-                    console.log(rp),
                     <form
                         key={rp.id}
-                        className='w-full max-w-lg border border-gray-300 rounded-lg p-6 bg-white shadow-md'
+                        className='w-full max-w-lg border border-gray-200 rounded-2xl p-6 bg-white shadow-xl'
                         onSubmit={updateHandleReport}
                     >
                         <label className='block mb-4'>
-                            <span className='block text-sm font-medium text-gray-700'>Asunto</span>
+                            <span className='block text-sm font-medium text-gray-800'>Asunto</span>
                             <input
                                 required
                                 placeholder='Agrega el título del problema'
-                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm'
+                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-400 focus:border-indigo-400'
                                 type='text'
                                 name='title'
                                 defaultValue={rp.asunto}
@@ -42,11 +41,11 @@ export const EditIncident = () => {
                         </label>
 
                         <label className='block mb-4'>
-                            <span className='block text-sm font-medium text-gray-700'>Descripción</span>
+                            <span className='block text-sm font-medium text-gray-800'>Descripción</span>
                             <input
                                 required
                                 placeholder='Realiza una breve descripción'
-                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm'
+                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-400 focus:border-indigo-400'
                                 type='text'
                                 name='description'
                                 defaultValue={rp.description}
@@ -54,10 +53,10 @@ export const EditIncident = () => {
                         </label>
 
                         <label className='block mb-4'>
-                            <span className='block text-sm font-medium text-gray-700'>Tipo</span>
+                            <span className='block text-sm font-medium text-gray-800'>Tipo</span>
                             <select
                                 required
-                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm'
+                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-400 focus:border-indigo-400'
                                 name='type'
                                 defaultValue={rp.tipo}
                             >
@@ -72,10 +71,10 @@ export const EditIncident = () => {
                         </label>
 
                         <label className='block mb-4'>
-                            <span className='block text-sm font-medium text-gray-700'>Estado</span>
+                            <span className='block text-sm font-medium text-gray-800'>Estado</span>
                             <select
                                 required
-                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm'
+                                className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-400 focus:border-indigo-400'
                                 name='status'
                                 defaultValue={rp.status}
                             >
@@ -86,7 +85,7 @@ export const EditIncident = () => {
                         </label>
 
                         <button
-                            className='w-full py-2 bg-orange-400 text-white font-semibold rounded-lg shadow-md hover:bg-orange-500'
+                            className='w-full py-2 bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-orange-600 transition-all duration-300'
                             type='submit'
                         >
                             Guardar Edición
